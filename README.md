@@ -1,26 +1,59 @@
 # Prompt Your Repository
 
-将你的仓库转换为提示词。
+<div align="center">
+
+[简体中文](README.zh.md)
+
+</div>
+
+**Prompt Your Repository** is designed to recursively read all files in a specified directory and output the content to a single file, `prompt.txt`, with additional formatting. The script allows you to exclude certain files or directories based on user-defined patterns.
+
+## Features
+
+- **Recursive Directory Traversal**: The script navigates through all files and subdirectories within a specified directory.
+- **File Exclusion**: Users can specify patterns to exclude certain files or directories from processing.
+- **Formatted Output**: Each file's content is written to a single output file, with a formatted header that includes the filename.
+- **Temporary Ignore File**: A temporary ignore file is created to manage exclusions and is automatically deleted after the script completes.
+
+## Requirements
+
+- Python 3.6+
+
+Install the required module with:
+
+```bash
+pip install gitignorefile
+```
 
 ## Usage
 
-```
-usage: main.py [-h] [-d DIRECTORY] [-o OUTPUT]
-               [-i [IGNORE ...]]
+To run the script, use the following command:
 
-递归读取指定目录下的所有文件内容，并输出到prompt.txt文件中
-
-options:
-  -h, --help            show this help message and exit
-  -d DIRECTORY, --directory DIRECTORY
-                        指定要递归读取的目录（默认使用当前运行目录）
-  -o OUTPUT, --output OUTPUT
-                        指定输出文件的文件名（默认输出到prompt.txt）
-  -i [IGNORE ...], --ignore [IGNORE ...]
+```bash
+python3 main.py [-d DIRECTORY] [-o OUTPUT] [-i IGNORE [IGNORE ...]]
 ```
 
-## Example
+### Arguments
 
-```shell
-python main.py -d . -o prompt.txt -i ".git" ".idea" "node_modules"
+- `-d, --directory`: Specify the directory to recursively read. Defaults to the current working directory.
+- `-o, --output`: Specify the name of the output file. Defaults to `prompt.txt`.
+- `-i, --ignore`: Specify patterns to exclude files or directories. Multiple patterns can be specified.
+
+### Example
+
+```bash
+python3 main.py -d /path/to/directory -o output.txt -i "*.log" "tmp/*"
 ```
+
+This command reads all files in `/path/to/directory`, excluding files matching `*.log` and any files in the `tmp/` directory, and writes the content to `output.txt`.
+
+## How It Works
+
+1. The script recursively traverses the specified directory.
+2. Files matching the ignore patterns are skipped.
+3. Each file's content is written to the output file, with a header containing the filename.
+4. A temporary ignore file (`.pyrtemp_delete_me_ignore`) manages exclusion patterns and is automatically removed after execution.
+
+## License
+
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
